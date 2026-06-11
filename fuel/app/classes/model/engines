@@ -1,0 +1,21 @@
+<?php
+
+class Model_Engines extends \Model
+{
+    // enginesテーブルが存在しない場合に作成する
+    public static function create_table()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `engines` (
+            `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `name` VARCHAR(255) NOT NULL,
+            `keyword` VARCHAR(255) NOT NULL,
+            `url` TEXT NOT NULL,
+            `created_at` TIMESTAMP NOT NULL,
+            `updated_at` TIMESTAMP NOT NULL,
+            UNIQUE KEY user_engine_unique (user_id, keyword)
+        )";
+        \DB::query($sql)
+            ->execute();
+    }
+}

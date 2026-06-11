@@ -16,4 +16,76 @@ class Model_Users extends \Model
         \DB::query($sql)
             ->execute();
     }
+
+    // --- Create
+
+    // ユーザーを追加
+    public static function create_user($name, $password, $url_key, $default_engine_id = null)
+    {
+        $sql = "INSERT INTO `users` (
+            name, password, url_key, default_engine_id, created_at)
+            VALUES (:name, :password, :url_key, :default_engine_id, NOW()
+        )";
+        \DB::query($sql)
+            ->bind('name', $name)
+            ->bind('password', $password)
+            ->bind('url_key', $url_key)
+            ->bind('default_engine_id', $default_engine_id)
+            ->execute();
+    }
+
+    // --- Read
+
+    // nameで取得
+    public static function get_user_by_name($name)
+    {
+        $sql = "SELECT * FROM `users` WHERE name = :name";
+        return \DB::query($sql)
+            ->bind('name', $name)
+            ->execute()
+            ->current();
+    }
+
+    // url_keyで取得
+    public static function get_user_by_url_key($url_key)
+    {
+        $sql = "SELECT * FROM `users` WHERE url_key = :url_key";
+        return \DB::query($sql)
+            ->bind('url_key', $url_key)
+            ->execute()
+            ->current();
+    }
+
+    // --- Update
+
+    // パスワードをnameで更新
+    public static function update_password($name, $new_password)
+    {
+        $sql = "UPDATE `users` SET password = :password WHERE name = :name";
+        \DB::query($sql)
+            ->bind('password', $new_password)
+            ->bind('name', $name)
+            ->execute();
+    }
+
+    // デフォルトエンジンIDをnameで更新
+    public static function update_default_engine_id($name, $default_engine_id)
+    {
+        $sql = "UPDATE `users` SET default_engine_id = :default_engine_id WHERE name = :name";
+        \DB::query($sql)
+            ->bind('default_engine_id', $default_engine_id)
+            ->bind('name', $name)
+            ->execute();
+    }
+
+    // --- Delete
+
+    // ユーザーをnameで削除
+    public static function delete_user($name)
+    {
+        $sql = "DELETE FROM `users` WHERE name = :name";
+        \DB::query($sql)
+            ->bind('name', $name)
+            ->execute();
+    }
 }

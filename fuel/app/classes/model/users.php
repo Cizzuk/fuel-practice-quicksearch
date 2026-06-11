@@ -24,8 +24,7 @@ class Model_Users extends \Model
     {
         $sql = "INSERT INTO `users` (
             name, password, url_key, default_engine_id, created_at)
-            VALUES (:name, :password, :url_key, :default_engine_id, NOW())
-        )";
+            VALUES (:name, :password, :url_key, :default_engine_id, NOW())";
         \DB::query($sql)
             ->bind('name', $name)
             ->bind('password', $password)

@@ -26,8 +26,7 @@ class Model_Engines extends \Model
     {
         $sql = "INSERT INTO `engines` (
             user_id, name, keyword, url, created_at, updated_at)
-            VALUES (:user_id, :name, :keyword, :url, NOW(), NOW())
-        )";
+            VALUES (:user_id, :name, :keyword, :url, NOW(), NOW())";
         \DB::query($sql)
             ->bind('user_id', $user_id)
             ->bind('name', $name)

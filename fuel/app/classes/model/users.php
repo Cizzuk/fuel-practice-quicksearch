@@ -11,7 +11,7 @@ class Model_Users extends \Model
             `password` VARCHAR(255) NOT NULL,
             `url_key` VARCHAR(255) NOT NULL UNIQUE KEY,
             `default_engine_id` INT,
-            `created_at` DATETIME NOT NULL,
+            `created_at` TIMESTAMP NOT NULL
         )";
         \DB::query($sql)
             ->execute();
@@ -24,7 +24,7 @@ class Model_Users extends \Model
     {
         $sql = "INSERT INTO `users` (
             name, password, url_key, default_engine_id, created_at)
-            VALUES (:name, :password, :url_key, :default_engine_id, NOW()
+            VALUES (:name, :password, :url_key, :default_engine_id, NOW())
         )";
         \DB::query($sql)
             ->bind('name', $name)

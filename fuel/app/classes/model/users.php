@@ -58,34 +58,34 @@ class Model_Users extends \Model
 
     // --- Update
 
-    // パスワードをnameで更新
-    public static function update_password($name, $new_password)
+    // パスワードをidで更新
+    public static function update_password($id, $new_password)
     {
-        $sql = "UPDATE `users` SET password = :password WHERE name = :name";
+        $sql = "UPDATE `users` SET password = :password WHERE id = :id";
         \DB::query($sql)
             ->bind('password', $new_password)
-            ->bind('name', $name)
+            ->bind('id', $id)
             ->execute();
     }
 
-    // デフォルトエンジンIDをnameで更新
-    public static function update_default_engine_id($name, $default_engine_id)
+    // デフォルトエンジンIDをidで更新
+    public static function update_default_engine_id($id, $default_engine_id)
     {
-        $sql = "UPDATE `users` SET default_engine_id = :default_engine_id WHERE name = :name";
+        $sql = "UPDATE `users` SET default_engine_id = :default_engine_id WHERE id = :id";
         \DB::query($sql)
             ->bind('default_engine_id', $default_engine_id)
-            ->bind('name', $name)
+            ->bind('id', $id)
             ->execute();
     }
 
     // --- Delete
 
-    // ユーザーをnameで削除
-    public static function delete_user($name)
+    // ユーザーをidで削除
+    public static function delete_user($id)
     {
-        $sql = "DELETE FROM `users` WHERE name = :name";
+        $sql = "DELETE FROM `users` WHERE id = :id";
         \DB::query($sql)
-            ->bind('name', $name)
+            ->bind('id', $id)
             ->execute();
     }
 }

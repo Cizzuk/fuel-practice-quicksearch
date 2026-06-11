@@ -18,4 +18,64 @@ class Model_Engines extends \Model
         \DB::query($sql)
             ->execute();
     }
+
+    // --- Create
+
+    // エンジンを追加
+    public static function create_engine($user_id, $name, $keyword, $url)
+    {
+        $sql = "INSERT INTO `engines` (
+            user_id, name, keyword, url, created_at, updated_at)
+            VALUES (:user_id, :name, :keyword, :url, NOW(), NOW())
+        )";
+        \DB::query($sql)
+            ->bind('user_id', $user_id)
+            ->bind('name', $name)
+            ->bind('keyword', $keyword)
+            ->bind('url', $url)
+            ->execute();
+    }
+
+    // --- Read
+
+    // user_idで取得
+    public static function get_engines_by_user_id($user_id)
+    {
+        $sql = "SELECT * FROM `engines` WHERE user_id = :user_id";
+        return \DB::query($sql)
+            ->bind('user_id', $user_id)
+            ->execute()
+            ->as_array();
+    }
+
+    // --- Update
+
+    // idでエンジンを更新
+    public static function update_engine($id, $name, $keyword, $url)
+    {
+        $sql = "UPDATE `engines` SET
+            name = :name,
+            keyword = :keyword,
+            url = :url,
+            updated_at = NOW()
+            WHERE id = :id
+        ";
+        \DB::query($sql)
+            ->bind('id', $id)
+            ->bind('name', $name)
+            ->bind('keyword', $keyword)
+            ->bind('url', $url)
+            ->execute();
+    }
+
+    // --- Delete
+
+    // idでエンジンを削除
+    public static function delete_engine($id)
+    {
+        $sql = "DELETE FROM `engines` WHERE id = :id";
+        \DB::query($sql)
+            ->bind('id', $id)
+            ->execute();
+    }
 }

@@ -25,4 +25,23 @@ class Controller_Quicksearch extends Controller
             }
         }
     }
+
+    // レスポンス作成ヘルパー
+
+    protected function render_page($view, array $data = array(), $status = 200)
+    {
+        return Response::forge(
+            View::forge($view, $data),
+            $status
+        );
+    }
+
+    protected function json_response(array $data, $status = 200)
+    {
+        return Response::forge(
+            json_encode($data),
+            $status,
+            array('Content-Type' => 'application/json; charset=utf-8')
+        );
+    }
 }

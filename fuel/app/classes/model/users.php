@@ -55,6 +55,16 @@ class Model_Users extends \Model
             ->current();
     }
 
+    // idで取得
+    public static function get_user_by_id($id)
+    {
+        $sql = "SELECT * FROM `users` WHERE id = :id";
+        return \DB::query($sql)
+            ->bind('id', $id)
+            ->execute()
+            ->current();
+    }
+
     // --- Update
 
     // パスワードをidで更新

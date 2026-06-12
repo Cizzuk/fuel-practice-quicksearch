@@ -38,6 +38,11 @@ class Controller_Account extends Controller_Quicksearch
 
     public function action_register()
     {
+        if (! Config::get('quicksearch.allow_signup', true)) {
+            Session::set_flash('quicksearch_message', '新規登録は停止されています。');
+            return Response::redirect('/');
+        }
+
         if (Input::method() !== 'POST') {
             return Response::redirect('/');
         }

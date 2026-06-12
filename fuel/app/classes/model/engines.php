@@ -11,8 +11,8 @@ class Model_Engines extends \Model
             `name` VARCHAR(255) NOT NULL,
             `keyword` VARCHAR(255) NOT NULL,
             `url` TEXT NOT NULL,
-            `created_at` TIMESTAMP NOT NULL,
-            `updated_at` TIMESTAMP NOT NULL,
+            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             UNIQUE KEY user_engine_unique (user_id, keyword)
         )";
         \DB::query($sql)

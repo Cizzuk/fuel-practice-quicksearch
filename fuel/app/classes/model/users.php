@@ -10,8 +10,8 @@ class Model_Users extends \Model
             `name` VARCHAR(255) NOT NULL UNIQUE KEY,
             `password` VARCHAR(255) NOT NULL,
             `url_key` VARCHAR(255) NOT NULL UNIQUE KEY,
-            `default_engine_id` INT,
-            `created_at` TIMESTAMP NOT NULL
+            `default_engine_id` INT NULL,
+            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )";
         \DB::query($sql)
             ->execute();

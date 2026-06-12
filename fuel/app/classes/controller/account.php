@@ -56,6 +56,12 @@ class Controller_Account extends Controller_Quicksearch
             return Response::redirect('/');
         }
 
+        // ユーザー名のバリデーション (英数字と_のみ, 3-20文字)
+        if (! preg_match('/^[a-zA-Z0-9_]{3,20}$/', $name)) {
+            Session::set_flash('quicksearch_message', 'ユーザー名は英数字とアンダースコアのみで、3文字以上20文字以下である必要があります。');
+            return Response::redirect('/');
+        }
+
         if ($password !== $password_confirm) {
             Session::set_flash('quicksearch_message', 'パスワードが一致しません。');
             return Response::redirect('/');

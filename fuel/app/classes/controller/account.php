@@ -26,6 +26,7 @@ class Controller_Account extends Controller_Quicksearch
         return $this->render_page('quicksearch/settings', array(
             'search_url' => $this->get_search_url(),
             'login_name' => $this->current_user['name'],
+            'max_engines' => (int) Config::get('quicksearch.max_engines', 10),
         ));
     }
 

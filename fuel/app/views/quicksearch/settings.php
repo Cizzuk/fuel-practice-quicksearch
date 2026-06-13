@@ -11,11 +11,17 @@
         <h1>検索エンジンの設定</h1>
         <p>ログイン中のアカウント: <?php echo htmlspecialchars($login_name, ENT_QUOTES, 'UTF-8'); ?></p>
         <p>検索URL: <code><?php echo htmlspecialchars($search_url, ENT_QUOTES, 'UTF-8'); ?></code></p>
+        <p data-bind="text: message, visible: message"></p>
 
         <footer>
-            <a href="/logout">ログアウト</a>
+            <a href="/credits">権利表記</a> /
+            <a href="/logout">ログアウト</a> /
+            <button type="button" data-bind="click: deleteAccount">アカウント削除</button>
         </footer>
     </div>
+
+    <script src="/assets/js/knockout.js"></script>
+    <script src="/assets/js/quicksearch.js"></script>
 </body>
 
 </html>

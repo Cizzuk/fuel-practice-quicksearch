@@ -77,4 +77,13 @@ class Model_Engines extends \Model
             ->bind('id', $id)
             ->execute();
     }
+
+    // user_idで削除
+    public static function delete_engines_by_user_id($user_id)
+    {
+        $sql = "DELETE FROM `engines` WHERE user_id = :user_id";
+        \DB::query($sql)
+            ->bind('user_id', $user_id)
+            ->execute();
+    }
 }

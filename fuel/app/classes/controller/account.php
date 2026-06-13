@@ -40,7 +40,7 @@ class Controller_Account extends Controller_Quicksearch
         $password = trim(Input::post('password', ''));
         $user = Model_Users::get_user_by_name($name);
 
-        if (! $user || ! $this->verify_password($password, $user['password'])) {
+        if (! $user || ! password_verify($password, $user['password'])) {
             Session::set_flash('quicksearch_message', 'ユーザー名かパスワードが違います。');
             return Response::redirect('/');
         }
@@ -86,7 +86,7 @@ class Controller_Account extends Controller_Quicksearch
         }
 
         $url_key = $this->generate_unique_url_key();
-        Model_Users::create_user($name, $this->hash_password($password), $url_key);
+        Model_Users::create_user($name, password_hash($password), $url_key);
         $this->login_user($name);
 
         return Response::redirect('settings');

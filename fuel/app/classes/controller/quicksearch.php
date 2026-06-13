@@ -67,24 +67,6 @@ class Controller_Quicksearch extends Controller
         return $url_key;
     }
 
-    protected function hash_password($password)
-    {
-        if (function_exists('password_hash')) {
-            return password_hash($password, PASSWORD_DEFAULT);
-        }
-
-        return hash('sha256', $password);
-    }
-
-    protected function verify_password($password, $hash)
-    {
-        if (function_exists('password_verify') && strpos($hash, '$') === 0) {
-            return password_verify($password, $hash);
-        }
-
-        return hash('sha256', $password) === $hash;
-    }
-
     // ユーザーのURLキーから検索URLを生成
     protected function get_search_url()
     {

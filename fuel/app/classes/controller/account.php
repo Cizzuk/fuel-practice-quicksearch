@@ -98,4 +98,22 @@ class Controller_Account extends Controller_Quicksearch
         Cookie::delete('quicksearch_user_name');
         return Response::redirect('/');
     }
+
+    public function action_delete_account()
+    {
+        if (! $this->current_user) {
+            return Response::redirect('/');
+        }
+
+        if (Input::method() !== 'POST') {
+            return Response::redirect('settings');
+        }
+
+        Model_Engines::delete_engines_by_user_id($this->current_user['id']);
+        Model_Users::delete_user($this->current_user['id']);
+        Session::delete('quicksearch_user_id');
+        Cookie::delete('quicksearch_user_name');
+
+        return Response::redirect('/');
+    }
 }

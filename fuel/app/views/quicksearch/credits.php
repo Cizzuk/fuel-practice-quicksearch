@@ -12,7 +12,7 @@
         <p>Knockout JavaScript library v3.5.3</p>
         <p>(c) The Knockout.js team - <a href="http://knockoutjs.com/">http://knockoutjs.com/</a></p>
         <p>License: MIT (<a href="http://www.opensource.org/licenses/mit-license.php">http://www.opensource.org/licenses/mit-license.php</a>)</p>
-        <p><a href="/settings">設定に戻る</a></p>
+        <p><a href="/">戻る</a></p>
     </div>
 </body>
 

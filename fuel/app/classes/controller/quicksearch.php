@@ -84,4 +84,10 @@ class Controller_Quicksearch extends Controller
 
         return hash('sha256', $password) === $hash;
     }
+
+    // ユーザーのURLキーから検索URLを生成
+    protected function get_search_url()
+    {
+        return Uri::base() . 'search/' . $this->current_user['url_key'] . '?q=%s';
+    }
 }

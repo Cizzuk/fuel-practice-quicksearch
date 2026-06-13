@@ -17,6 +17,18 @@ class Controller_Account extends Controller_Quicksearch
         ));
     }
 
+    public function action_settings()
+    {
+        if (! $this->current_user) {
+            return Response::redirect('/');
+        }
+
+        return $this->render_page('quicksearch/settings', array(
+            'search_url' => $this->get_search_url(),
+            'login_name' => $this->current_user['name'],
+        ));
+    }
+
     public function action_login()
     {
         if (Input::method() !== 'POST') {

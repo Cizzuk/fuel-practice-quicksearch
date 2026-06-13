@@ -78,4 +78,11 @@ class Controller_Account extends Controller_Quicksearch
 
         return Response::redirect('settings');
     }
+
+    public function action_logout()
+    {
+        Session::delete('quicksearch_user_id');
+        Cookie::delete('quicksearch_user_name');
+        return Response::redirect('/');
+    }
 }

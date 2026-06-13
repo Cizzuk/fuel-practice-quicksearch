@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Quicksearch</title>
+    <link rel="stylesheet" href="/assets/css/quicksearch.css">
 </head>
 
 <body>

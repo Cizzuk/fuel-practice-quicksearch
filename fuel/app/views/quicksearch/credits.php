@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>権利表記 - Quicksearch</title>
+    <link rel="stylesheet" href="/assets/css/quicksearch.css">
 </head>
 
 <body>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>検索エンジンの設定 - Quicksearch</title>
+    <link rel="stylesheet" href="/assets/css/quicksearch.css">
 </head>
 
 <body>
@@ -11,6 +12,7 @@
         <h1>検索エンジンの設定</h1>
         <p>ログイン中のアカウント: <?php echo htmlspecialchars($login_name, ENT_QUOTES, 'UTF-8'); ?></p>
         <p>検索URL: <code><?php echo htmlspecialchars($search_url, ENT_QUOTES, 'UTF-8'); ?></code></p>
+        <p><small>このURLをあなたの既定の検索エンジンに設定してください。</small></p>
         <p data-bind="text: message, visible: message"></p>
 
         <footer>

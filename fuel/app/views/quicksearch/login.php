@@ -38,6 +38,10 @@
                 </form>
             </div>
         <?php endif; ?>
+
+        <footer>
+            <a href="/credits">権利表記</a>
+        </footer>
     </div>
 </body>
 

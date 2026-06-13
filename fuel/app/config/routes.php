@@ -6,4 +6,5 @@ return array(
 	'settings' => 'account/settings',
 	'logout' => 'account/logout',
 	'account/delete' => 'account/delete_account',
+	'credits' => 'account/credits',
 );

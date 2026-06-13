@@ -90,4 +90,9 @@ class Controller_Quicksearch extends Controller
     {
         return Uri::base() . 'search/' . $this->current_user['url_key'] . '?q=%s';
     }
+
+    public function action_credits()
+    {
+        return $this->render_page('quicksearch/credits', array());
+    }
 }

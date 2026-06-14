@@ -27,12 +27,23 @@
         var self = this;
         self.root = root;
         self.maxEngines = parseInt(root.getAttribute('data-max-engines'), 10) || 0;
-        
-        self.message = ko.observable('');
+
+        self.engines = ko.observableArray([]);
+        self.errorMessage = ko.observable('');
+
+        self.isEditing = ko.observable(false);
         self.isLoading = ko.observable(false);
 
-        self.setMessage = function (text) {
-            self.message(text || '');
+        self.form = {
+            id: ko.observable(''),
+            name: ko.observable(''),
+            keyword: ko.observable(''),
+            url: ko.observable(''),
+            makeDefault: ko.observable(false)
+        };
+
+        self.setErrorMessage = function (text) {
+            self.errorMessage(text || '');
         };
 
         self.deleteAccount = function () {
@@ -46,11 +57,95 @@
             }).then(function () {
                 window.location.href = '/';
             }).catch(function (error) {
-                self.setMessage((error && error.message) ? error.message : 'アカウントの削除に失敗しました。');
+                self.setErrorMessage((error && error.message) ? error.message : 'アカウントの削除に失敗しました。');
             }).then(function () {
                 self.isLoading(false);
             });
         };
+
+        self.canSave = ko.computed(function () {
+            return !self.isLoading();
+        });
+
+        self.resetForm = function () {
+            self.form.id('');
+            self.form.name('');
+            self.form.keyword('');
+            self.form.url('');
+            self.form.makeDefault(false);
+            self.setErrorMessage('');
+        };
+
+        self.closeForm = function () {
+            self.isEditing(false);
+            self.resetForm();
+        }
+
+        self.addNewEngine = function () {
+            self.isEditing(true);
+            self.resetForm();
+        };
+
+        self.editEngine = function (engine) {
+            self.isEditing(true);
+            self.form.id(engine.id);
+            self.form.name(engine.name);
+            self.form.keyword(engine.keyword);
+            self.form.url(engine.url);
+            self.form.makeDefault(!!engine.is_default);
+        };
+
+        self.reload = function () {
+            return requestJson('/api/engines').then(function (data) {
+                self.engines(data.engines || []);
+                self.maxEngines = data.max_engines || self.maxEngines;
+                self.setErrorMessage('');
+            });
+        };
+
+        self.saveEngine = function () {
+            self.isLoading(true);
+            requestJson('/api/engines/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                body: 'id=' + encodeURIComponent(self.form.id()) +
+                    '&name=' + encodeURIComponent(self.form.name()) +
+                    '&keyword=' + encodeURIComponent(self.form.keyword()) +
+                    '&url=' + encodeURIComponent(self.form.url()) +
+                    '&make_default=' + (self.form.makeDefault() ? '1' : '0')
+            }).then(function (data) {
+                self.engines(data.engines || []);
+                self.closeForm();
+            }).catch(function (error) {
+                self.setErrorMessage((error && error.message) ? error.message : '保存に失敗しました。');
+            }).then(function () {
+                self.isLoading(false);
+            });
+        };
+
+        self.deleteEngine = function () {
+            if (!confirm('削除しますか。')) {
+                return;
+            }
+
+            self.isLoading(true);
+            requestJson('/api/engines/delete/' + encodeURIComponent(self.form.id()), {
+                method: 'POST'
+            }).then(function (data) {
+                self.engines(data.engines || []);
+                self.resetForm();
+                self.setErrorMessage('削除しました。');
+            }).catch(function (error) {
+                self.setErrorMessage((error && error.message) ? error.message : '削除に失敗しました。');
+            }).then(function () {
+                self.closeForm();
+                self.isLoading(false);
+            });
+        };
+
+        self.reload();
     }
 
     document.addEventListener('DOMContentLoaded', function () {

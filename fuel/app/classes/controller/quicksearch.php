@@ -45,6 +45,16 @@ class Controller_Quicksearch extends Controller
         );
     }
 
+    // ログイン必須API用のヘルパー
+    protected function require_login_json()
+    {
+        // ログインしていればnull
+        if ($this->current_user) return null;
+
+        // ログインしていなければエラーJSON
+        return $this->json_response(array('message' => 'ログインしてください。'), 403);
+    }
+
     protected function login_user($name)
     {
         $user = Model_Users::get_user_by_name($name);
@@ -53,6 +63,14 @@ class Controller_Quicksearch extends Controller
         // 30日間有効なクッキーをセット
         Cookie::set('quicksearch_user_name', $user['name'], 60 * 60 * 24 * 30);
         $this->current_user = $user;
+    }
+
+    // ユーザー情報の更新
+    protected function refresh_current_user()
+    {
+        if ($this->current_user) {
+            $this->current_user = Model_Users::get_user_by_id($this->current_user['id']);
+        }
     }
 
     // ユーザー固有のURLキーの生成

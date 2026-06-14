@@ -47,6 +47,49 @@ class Model_Engines extends \Model
             ->as_array();
     }
 
+    // user_idとkeywordで取得
+    public static function get_engine_by_keyword($user_id, $keyword, $exclude_id = null)
+    {
+        $sql = "SELECT * FROM `engines` WHERE user_id = :user_id AND keyword = :keyword";
+
+        // 重複チェック用
+        if ($exclude_id !== null) {
+            $sql .= " AND id != :exclude_id";
+        }
+
+        $query = \DB::query($sql)
+            ->bind('user_id', $user_id)
+            ->bind('keyword', $keyword);
+
+        if ($exclude_id !== null) {
+            $query->bind('exclude_id', $exclude_id);
+        }
+
+        return $query->execute()->current();
+    }
+
+    // idで取得
+    public static function get_engine_by_id($id)
+    {
+        $sql = "SELECT * FROM `engines` WHERE id = :id";
+        return \DB::query($sql)
+            ->bind('id', $id)
+            ->execute()
+            ->current();
+    }
+
+    // user_idで件数を取得
+    public static function get_engine_count_by_user_id($user_id)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM `engines` WHERE user_id = :user_id";
+        $row = \DB::query($sql)
+            ->bind('user_id', $user_id)
+            ->execute()
+            ->current();
+
+        return (int) $row['total'];
+    }
+
     // --- Update
 
     // idでエンジンを更新

@@ -1,10 +1,22 @@
 :root {
+    color-scheme: light dark;
     --accent: #36f;
     --error-color: #c00;
     --primary-color: #333;
     --secondary-color: #666;
     --border-color: #ccc;
     --background-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --accent: #39f;
+        --error-color: #f66;
+        --primary-color: #eee;
+        --secondary-color: #aaa;
+        --border-color: #555;
+        --background-color: #111;
+    }
 }
 
 * {

@@ -86,7 +86,7 @@ class Controller_Account extends Controller_Quicksearch
         }
 
         $url_key = $this->generate_unique_url_key();
-        Model_Users::create_user($name, password_hash($password), $url_key);
+        Model_Users::create_user($name, password_hash($password, PASSWORD_DEFAULT), $url_key);
         $this->login_user($name);
 
         return Response::redirect('settings');

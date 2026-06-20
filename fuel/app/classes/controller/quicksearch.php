@@ -36,6 +36,15 @@ class Controller_Quicksearch extends Controller
         );
     }
 
+    protected function render_error($message, $status = 400)
+    {
+        return $this->render_page(
+            'quicksearch/error',
+            array('message' => $message,),
+            $status
+        );
+    }
+
     protected function json_response(array $data, $status = 200)
     {
         return Response::forge(
@@ -94,5 +103,10 @@ class Controller_Quicksearch extends Controller
     public function action_credits()
     {
         return $this->render_page('quicksearch/credits', array());
+    }
+
+    public function action_not_found()
+    {
+        return $this->render_error('ページが見つかりません。', 404);
     }
 }

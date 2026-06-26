@@ -1,0 +1,153 @@
+:root {
+    color-scheme: light dark;
+    --accent: #36f;
+    --error-color: #c00;
+    --primary-color: #333;
+    --secondary-color: #666;
+    --border-color: #ccc;
+    --background-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --accent: #39f;
+        --error-color: #f66;
+        --primary-color: #eee;
+        --secondary-color: #aaa;
+        --border-color: #555;
+        --background-color: #111;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    corner-shape: superellipse(1.2);
+    font-family: system-ui, sans-serif;
+    overflow-wrap: break-word;
+    text-underline-offset: 0.1em;
+    word-break: auto-phrase;
+}
+
+body {
+    background: var(--background-color);
+    color: var(--primary-color);
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px 20px 40px;
+}
+
+.panel {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 40px 0;
+}
+
+.panel h2 {
+    margin-top: 0;
+}
+
+.settings-sheet {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+label {
+    display: block;
+    margin: 20px 0 4px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 4px 0;
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1em;
+    background: var(--background-color);
+    color: var(--primary-color);
+}
+
+button {
+    margin-top: 20px;
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--background-color);
+    color: var(--primary-color);
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(90%);
+}
+
+.engine-item {
+    padding: 20px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: var(--background-color);
+    cursor: pointer;
+}
+
+.engine-item:hover {
+    filter: brightness(90%);
+}
+
+.error-message {
+    color: var(--error-color);
+}
+
+small {
+    color: var(--secondary-color);
+}
+
+code {
+    padding: 2px 4px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--secondary-color);
+}
+
+footer a,
+footer button {
+    color: var(--accent);
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+footer button {
+    background: none;
+    border: none;
+    font: inherit;
+    padding: 0;
+    cursor: pointer;
+}

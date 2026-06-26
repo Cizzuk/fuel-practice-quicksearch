@@ -54,7 +54,8 @@
                 </div>
             </div>
 
-            <button type="button" data-bind="click: addNewEngine, enable: engines().length < maxEngines">新しい検索エンジンを追加</button>
+            <button type="button" data-bind="click: addNewEngine, visible: engines().length < maxEngines">新しい検索エンジンを追加</button>
+            <p class="error-message" data-bind="visible: engines().length >= maxEngines">登録可能な検索エンジンの最大数に達しました。</p>
         </div>
 
         <footer>

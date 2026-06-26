@@ -38,6 +38,8 @@
                     <button type="submit">登録</button>
                 </form>
             </div>
+        <?php else: ?>
+            <p>新規登録は停止されています。</p>
         <?php endif; ?>
 
         <footer>

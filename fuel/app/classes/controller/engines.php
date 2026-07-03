@@ -43,6 +43,10 @@ class Controller_Engines extends Controller_Quicksearch
             return $this->json_response(array('message' => '検索URLには%sを含めてください。'), 400);
         }
 
+        if (! preg_match('/^https?:\/\//', $url)) {
+            return $this->json_response(array('message' => '検索URLはhttp://またはhttps://で始まる必要があります。'), 400);
+        }
+
         // この追加/更新でデフォルトの検索エンジンを設定する必要があるか確認
         $should_make_default = ($make_default || self::should_make_default());
         $engine = null;

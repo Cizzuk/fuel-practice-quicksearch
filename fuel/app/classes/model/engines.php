@@ -24,14 +24,15 @@ class Model_Engines extends \Model
     // エンジンを追加
     public static function create_engine($user_id, $name, $keyword, $url)
     {
-        $sql = "INSERT INTO `engines` (
-            user_id, name, keyword, url, created_at, updated_at)
-            VALUES (:user_id, :name, :keyword, :url, NOW(), NOW())";
-        \DB::query($sql)
-            ->bind('user_id', $user_id)
-            ->bind('name', $name)
-            ->bind('keyword', $keyword)
-            ->bind('url', $url)
+        \DB::insert('engines')
+            ->set(array(
+                'user_id' => $user_id,
+                'name' => $name,
+                'keyword' => $keyword,
+                'url' => $url,
+                'created_at' => \DB::expr('NOW()'),
+                'updated_at' => \DB::expr('NOW()'),
+            ))
             ->execute();
     }
 
@@ -40,9 +41,9 @@ class Model_Engines extends \Model
     // user_idで取得
     public static function get_engines_by_user_id($user_id)
     {
-        $sql = "SELECT * FROM `engines` WHERE user_id = :user_id";
-        return \DB::query($sql)
-            ->bind('user_id', $user_id)
+        return \DB::select('*')
+            ->from('engines')
+            ->where('user_id', '=', $user_id)
             ->execute()
             ->as_array();
     }
@@ -50,19 +51,14 @@ class Model_Engines extends \Model
     // user_idとkeywordで取得
     public static function get_engine_by_keyword($user_id, $keyword, $exclude_id = null)
     {
-        $sql = "SELECT * FROM `engines` WHERE user_id = :user_id AND keyword = :keyword";
+        $query = \DB::select('*')
+            ->from('engines')
+            ->where('user_id', '=', $user_id)
+            ->and_where('keyword', '=', $keyword);
 
         // 重複チェック用
         if ($exclude_id !== null) {
-            $sql .= " AND id != :exclude_id";
-        }
-
-        $query = \DB::query($sql)
-            ->bind('user_id', $user_id)
-            ->bind('keyword', $keyword);
-
-        if ($exclude_id !== null) {
-            $query->bind('exclude_id', $exclude_id);
+            $query->and_where('id', '!=', $exclude_id);
         }
 
         return $query->execute()->current();
@@ -71,9 +67,9 @@ class Model_Engines extends \Model
     // idで取得
     public static function get_engine_by_id($id)
     {
-        $sql = "SELECT * FROM `engines` WHERE id = :id";
-        return \DB::query($sql)
-            ->bind('id', $id)
+        return \DB::select('*')
+            ->from('engines')
+            ->where('id', '=', $id)
             ->execute()
             ->current();
     }
@@ -81,9 +77,9 @@ class Model_Engines extends \Model
     // user_idで件数を取得
     public static function get_engine_count_by_user_id($user_id)
     {
-        $sql = "SELECT COUNT(*) AS total FROM `engines` WHERE user_id = :user_id";
-        $row = \DB::query($sql)
-            ->bind('user_id', $user_id)
+        $row = \DB::select(\DB::expr('COUNT(*) AS total'))
+            ->from('engines')
+            ->where('user_id', '=', $user_id)
             ->execute()
             ->current();
 
@@ -95,18 +91,14 @@ class Model_Engines extends \Model
     // idでエンジンを更新
     public static function update_engine($id, $name, $keyword, $url)
     {
-        $sql = "UPDATE `engines` SET
-            name = :name,
-            keyword = :keyword,
-            url = :url,
-            updated_at = NOW()
-            WHERE id = :id
-        ";
-        \DB::query($sql)
-            ->bind('id', $id)
-            ->bind('name', $name)
-            ->bind('keyword', $keyword)
-            ->bind('url', $url)
+        \DB::update('engines')
+            ->set(array(
+                'name' => $name,
+                'keyword' => $keyword,
+                'url' => $url,
+                'updated_at' => \DB::expr('NOW()'),
+            ))
+            ->where('id', '=', $id)
             ->execute();
     }
 
@@ -115,18 +107,16 @@ class Model_Engines extends \Model
     // idでエンジンを削除
     public static function delete_engine($id)
     {
-        $sql = "DELETE FROM `engines` WHERE id = :id";
-        \DB::query($sql)
-            ->bind('id', $id)
+        \DB::delete('engines')
+            ->where('id', '=', $id)
             ->execute();
     }
 
     // user_idで削除
     public static function delete_engines_by_user_id($user_id)
     {
-        $sql = "DELETE FROM `engines` WHERE user_id = :user_id";
-        \DB::query($sql)
-            ->bind('user_id', $user_id)
+        \DB::delete('engines')
+            ->where('user_id', '=', $user_id)
             ->execute();
     }
 }

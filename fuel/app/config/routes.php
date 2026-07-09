@@ -7,7 +7,7 @@ return array(
 	'settings' => 'account/settings',
 	'logout' => 'account/logout',
 	'account/delete' => 'account/delete_account',
-	'credits' => 'account/credits',
+	'credits' => 'quicksearch/credits',
 	'search/(:any)' => 'search/index/$1',
 	'api/engines' => 'engines/api_engines',
 	'api/engines/save' => 'engines/api_engine_save',

@@ -16,7 +16,7 @@ class Controller_Search extends Controller_Quicksearch
 
         // クエリを最初のスペースで分割して、2つに分ける
         $parts = explode(' ', $query, 2);
-        if (count($parts) == 2) {
+        if (count($parts) === 2) {
             $keyword = $parts[0];
             $potential_search_term = $parts[1];
 

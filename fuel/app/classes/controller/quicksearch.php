@@ -12,9 +12,6 @@ class Controller_Quicksearch extends Controller
         Config::load('quicksearch', true);
         $this->config = Config::get('quicksearch', array());
 
-        Model_Users::create_table();
-        Model_Engines::create_table();
-
         // セッション取得
         $user_id = Session::get('quicksearch_user_id');
         if ($user_id) {

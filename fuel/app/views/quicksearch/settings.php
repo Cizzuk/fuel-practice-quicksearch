@@ -1,3 +1,5 @@
+<?php echo \Fuel\Core\Security::js_fetch_token(); ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -5,6 +7,7 @@
     <meta charset="utf-8">
     <title>検索エンジンの設定 - Quicksearch</title>
     <link rel="stylesheet" href="/assets/css/quicksearch.css">
+    <meta name="csrf-token-key" content="<?= Config::get('security.csrf_token_key') ?>">
 </head>
 
 <body>

@@ -1,3 +1,8 @@
+<?php
+$csrf_token_key = Config::get('security.csrf_token_key');
+$csrf_token = Security::fetch_token();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -17,6 +22,7 @@
         <div class="panel">
             <h2>ログイン</h2>
             <form method="post" action="/login">
+                <?= Form::hidden($csrf_token_key, $csrf_token) ?>
                 <label>ユーザー名</label>
                 <input type="text" name="name" value="<?php echo htmlspecialchars($login_name, ENT_QUOTES, 'UTF-8'); ?>" maxlength="20">
                 <label>パスワード</label>
@@ -29,6 +35,7 @@
             <div class="panel">
                 <h2>新規登録</h2>
                 <form method="post" action="/register">
+                    <?= Form::hidden($csrf_token_key, $csrf_token) ?>
                     <label>ユーザー名</label>
                     <input type="text" name="name" maxlength="20">
                     <label>パスワード</label>

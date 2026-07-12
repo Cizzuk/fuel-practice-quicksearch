@@ -34,6 +34,9 @@
         self.isEditing = ko.observable(false);
         self.isLoading = ko.observable(false);
 
+        self.isDeletingAccount = ko.observable(false);
+        self.deletePassword = ko.observable('');
+
         self.form = {
             id: ko.observable(''),
             name: ko.observable(''),
@@ -47,13 +50,17 @@
         };
 
         self.deleteAccount = function () {
-            if (!confirm('アカウントを削除しますか？この操作は元に戻せません。')) {
-                return;
-            }
+            self.isDeletingAccount(true);
+        };
 
+        self.confirmDeleteAccount = function () {
             self.isLoading(true);
             requestJson('/account/delete', {
-                method: 'POST'
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                body: 'password=' + encodeURIComponent(self.deletePassword())
             }).then(function () {
                 window.location.href = '/';
             }).catch(function (error) {
@@ -61,6 +68,10 @@
             }).then(function () {
                 self.isLoading(false);
             });
+        };
+
+        self.cancelDeleteAccount = function () {
+            self.isDeletingAccount(false);
         };
 
         self.canSave = ko.computed(function () {

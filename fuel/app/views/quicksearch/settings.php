@@ -15,6 +15,8 @@
         <p><small>このURLをあなたのブラウザの既定の検索エンジンに設定してください。</small></p>
         <p class="error-message" data-bind="text: errorMessage, visible: errorMessage"></p>
 
+        <!-- 検索エンジン編集のシート -->
+
         <div class=settings-sheet data-bind="visible: isEditing">
             <div class="panel">
                 <h2>検索エンジンの編集</h2>
@@ -37,6 +39,8 @@
             </div>
         </div>
 
+        <!-- 検索エンジン一覧 -->
+
         <div class="panel">
             <h2>検索エンジンの一覧</h2>
             <p data-bind="visible: engines().length === 0">検索エンジンがありません。</p>
@@ -51,6 +55,22 @@
                         <span data-bind="text: keyword"></span>
                         <small data-bind="text: url"></small>
                     </div>
+                </div>
+            </div>
+
+            <!-- アカウント削除のシート -->
+
+            <div class="settings-sheet" data-bind="visible: isDeletingAccount">
+                <div class="panel">
+                    <h2>アカウント削除</h2>
+                    <p>アカウントを削除すると、登録した検索エンジンの情報もすべて削除されます。</p>
+                    <form data-bind="submit: confirmDeleteAccount">
+                        <label>パスワード</label>
+                        <input type="password" data-bind="value: deletePassword, valueUpdate: 'afterkeydown'">
+                        <button type="submit" data-bind="enable: canSave">削除する</button>
+                        <button type="button" data-bind="click: cancelDeleteAccount">キャンセル</button>
+                    </form>
+                    <p class="error-message" data-bind="text: errorMessage, visible: errorMessage"></p>
                 </div>
             </div>
 

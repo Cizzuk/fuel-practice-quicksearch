@@ -156,12 +156,11 @@
                 body: encodeURIComponent(csrfTokenKey) + '=' + encodeURIComponent(fuel_csrf_token())
             }).then(function (data) {
                 self.engines(data.engines || []);
-                self.resetForm();
+                self.closeForm();
                 self.setErrorMessage('削除しました。');
             }).catch(function (error) {
                 self.setErrorMessage((error && error.message) ? error.message : '削除に失敗しました。');
             }).then(function () {
-                self.closeForm();
                 self.isLoading(false);
             });
         };

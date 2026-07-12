@@ -11,7 +11,7 @@
     <div class="page">
         <h1>エラー</h1>
         <p class="error-message"><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></p>
-        <p><a href="/settings">設定へ</a></p>
+        <p><a href="/settings">設定へ戻る</a></p>
     </div>
 </body>
 

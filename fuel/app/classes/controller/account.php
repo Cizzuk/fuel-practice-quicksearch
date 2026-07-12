@@ -109,6 +109,13 @@ class Controller_Account extends Controller_Quicksearch
             return Response::redirect('settings');
         }
 
+        $password = trim(Input::post('password', ''));
+
+        // パスワードの確認
+        if (! password_verify($password, $this->current_user['password'])) {
+            return $this->json_response(array('message' => 'パスワードが間違っています。'), 400);
+        }
+
         Model_Engines::delete_engines_by_user_id($this->current_user['id']);
         Model_Users::delete_user($this->current_user['id']);
         Session::delete('quicksearch_user_id');

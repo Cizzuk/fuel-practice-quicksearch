@@ -119,6 +119,10 @@ class Controller_Account extends Controller_Quicksearch
             return Response::redirect('settings');
         }
 
+        if (! Security::check_token()) {
+            return $this->json_response(array('message' => '不正なリクエストです。'), 400);
+        }
+
         $password = trim(Input::post('password', ''));
 
         // パスワードの確認

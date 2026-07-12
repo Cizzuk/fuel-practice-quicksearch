@@ -1,6 +1,8 @@
 // Knockout.js前提
 
 (function () {
+    const csrfTokenKey = document.querySelector('meta[name="csrf-token-key"]').getAttribute('content');
+
     // Fetch APIを使ってJSONデータをリクエストする関数
     function requestJson(url, options) {
         return fetch(url, options).then(function (response) {
@@ -65,7 +67,8 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                body: 'password=' + encodeURIComponent(self.deleteAccountPassword())
+                body: 'password=' + encodeURIComponent(self.deleteAccountPassword()) +
+                    '&' + encodeURIComponent(csrfTokenKey) + '=' + encodeURIComponent(fuel_csrf_token())
             }).then(function () {
                 window.location.href = '/';
             }).catch(function (error) {
@@ -130,7 +133,8 @@
                     '&name=' + encodeURIComponent(self.form.name()) +
                     '&keyword=' + encodeURIComponent(self.form.keyword()) +
                     '&url=' + encodeURIComponent(self.form.url()) +
-                    '&make_default=' + (self.form.makeDefault() ? '1' : '0')
+                    '&make_default=' + (self.form.makeDefault() ? '1' : '0') +
+                    '&' + encodeURIComponent(csrfTokenKey) + '=' + encodeURIComponent(fuel_csrf_token())
             }).then(function (data) {
                 self.engines(data.engines || []);
                 self.closeForm();
@@ -148,7 +152,8 @@
 
             self.isLoading(true);
             requestJson('/api/engines/delete/' + encodeURIComponent(self.form.id()), {
-                method: 'POST'
+                method: 'POST',
+                body: encodeURIComponent(csrfTokenKey) + '=' + encodeURIComponent(fuel_csrf_token())
             }).then(function (data) {
                 self.engines(data.engines || []);
                 self.resetForm();

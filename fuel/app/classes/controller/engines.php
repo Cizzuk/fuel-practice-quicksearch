@@ -23,6 +23,10 @@ class Controller_Engines extends Controller_Quicksearch
             return $this->json_response(array('message' => '不正なリクエストです。'), 400);
         }
 
+        if (! Security::check_token()) {
+            return $this->json_response(array('message' => '不正なリクエストです。'), 400);
+        }
+
         $id = (int) Input::post('id', 0);
         $name = trim(Input::post('name', ''));
         $keyword = trim(Input::post('keyword', ''));
@@ -95,6 +99,10 @@ class Controller_Engines extends Controller_Quicksearch
         }
 
         if (Input::method() !== 'POST') {
+            return $this->json_response(array('message' => '不正なリクエストです。'), 400);
+        }
+
+        if (! Security::check_token()) {
             return $this->json_response(array('message' => '不正なリクエストです。'), 400);
         }
 

@@ -153,6 +153,9 @@
             self.isLoading(true);
             requestJson('/api/engines/delete/' + encodeURIComponent(self.form.id()), {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
                 body: encodeURIComponent(csrfTokenKey) + '=' + encodeURIComponent(fuel_csrf_token())
             }).then(function (data) {
                 self.engines(data.engines || []);

@@ -35,7 +35,8 @@
         self.isLoading = ko.observable(false);
 
         self.isDeletingAccount = ko.observable(false);
-        self.deletePassword = ko.observable('');
+        self.deleteAccountPassword = ko.observable('');
+        self.deleteAccountErrorMessage = ko.observable('');
 
         self.form = {
             id: ko.observable(''),
@@ -49,6 +50,10 @@
             self.errorMessage(text || '');
         };
 
+        self.setDeleteAccountErrorMessage = function (text) {
+            self.deleteAccountErrorMessage(text || '');
+        };
+
         self.deleteAccount = function () {
             self.isDeletingAccount(true);
         };
@@ -60,11 +65,11 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                body: 'password=' + encodeURIComponent(self.deletePassword())
+                body: 'password=' + encodeURIComponent(self.deleteAccountPassword())
             }).then(function () {
                 window.location.href = '/';
             }).catch(function (error) {
-                self.setErrorMessage((error && error.message) ? error.message : 'アカウントの削除に失敗しました。');
+                self.setDeleteAccountErrorMessage((error && error.message) ? error.message : 'アカウントの削除に失敗しました。');
             }).then(function () {
                 self.isLoading(false);
             });

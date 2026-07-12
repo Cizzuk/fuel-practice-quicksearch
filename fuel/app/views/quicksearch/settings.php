@@ -66,11 +66,11 @@
                     <p>アカウントを削除すると、登録した検索エンジンの情報もすべて削除されます。</p>
                     <form data-bind="submit: confirmDeleteAccount">
                         <label>パスワード</label>
-                        <input type="password" data-bind="value: deletePassword, valueUpdate: 'afterkeydown'">
+                        <input type="password" data-bind="value: deleteAccountPassword, valueUpdate: 'afterkeydown'">
                         <button type="submit" data-bind="enable: canSave">削除する</button>
                         <button type="button" data-bind="click: cancelDeleteAccount">キャンセル</button>
                     </form>
-                    <p class="error-message" data-bind="text: errorMessage, visible: errorMessage"></p>
+                    <p class="error-message" data-bind="text: deleteAccountErrorMessage, visible: deleteAccountErrorMessage"></p>
                 </div>
             </div>
 

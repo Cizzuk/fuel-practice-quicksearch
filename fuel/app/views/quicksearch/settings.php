@@ -8,7 +8,6 @@
     <title>検索エンジンの設定 - Quicksearch</title>
     <link rel="stylesheet" href="/assets/css/quicksearch.css">
     <meta name="csrf-token-key" content="<?= Config::get('security.csrf_token_key') ?>">
-    <meta name="csrf-token" content="<?= Security::fetch_token() ?>">
 </head>
 
 <body>
